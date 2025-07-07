@@ -34,9 +34,6 @@ export function QuoteGenerator() {
   };
 
   return (
-    // Main container: A slightly complex background to support the blur effect
-    // Consider adding a background image or a more dynamic gradient here in globals.css if desired,
-    // otherwise, the subtle bg-base-100 with blur will still look clean.
     <div className="min-h-screen flex flex-col items-center justify-center p-6 bg-base-100 text-base-content font-sans
                     relative overflow-hidden"> 
 
@@ -93,7 +90,7 @@ export function QuoteGenerator() {
                 >
                   <CardContent className="p-0">
                     <p className="text-xl md:text-2xl italic text-base-content leading-relaxed mb-4">
-                      "{quote.text}"
+                    &ldquo;{quote.text}&rdquo;
                     </p>
                     <p className="text-lg md:text-xl text-right font-medium text-base-content text-opacity-70">
                       - {quote.author}
@@ -106,7 +103,7 @@ export function QuoteGenerator() {
 
           {generatedQuotes.length === 0 && (
             <p className="text-center text-base-content text-opacity-60 text-xl mt-8">
-              Start by typing a topic and clicking "Generate Quotes"!
+            Start by typing a topic and clicking &ldquo;Generate Quotes&rdquo;!
             </p>
           )}
 
