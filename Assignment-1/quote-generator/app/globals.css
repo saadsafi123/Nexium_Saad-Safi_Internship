@@ -1,26 +1,49 @@
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
+@layer base {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
+    /* Base colors mapped to DaisyUI's semantic variables */
+    --background: var(--b1);
+    --foreground: var(--bc);
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+    --card: var(--b1);
+    --card-foreground: var(--bc);
+
+    --popover: var(--b1);
+    --popover-foreground: var(--bc);
+
+    --primary: var(--p);
+    --primary-foreground: var(--pc);
+
+    --secondary: var(--s);
+    --secondary-foreground: var(--sc);
+
+    --muted: var(--b2);
+    --muted-foreground: var(--nc);
+
+    --accent: var(--a);
+    --accent-foreground: var(--ac);
+
+    --destructive: var(--er);
+    --destructive-foreground: var(--erc);
+
+    --border: var(--b3);
+    --input: var(--b3);
+    --ring: var(--p);
+
+    --radius: 0.5rem;
+  }
+
+  /*
+    Applying base styles using CSS variables directly.
+  */
+  * {
+    border-color: hsl(var(--border));
+  }
+  body {
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
+  }
 }
