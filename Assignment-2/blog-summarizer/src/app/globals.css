@@ -5,11 +5,11 @@
 @tailwind components;
 @tailwind utilities;
 
-/* 2. All @layer base rules come immediately after @tailwind directives.
-   We REMOVE @import, @custom-variant, and @theme inline blocks from here. */
+/* 2. Standard ShadCN UI variables and global apply rules.
+   All other problematic or redundant CSS has been removed from here. */
 @layer base {
   :root {
-    /* ShadCN UI variables using HSL values (standard and widely compatible) */
+    /* ShadCN UI variables - Standard HSL values */
     --background: 0 0% 100%;
     --foreground: 222.2 84% 4.9%;
 
@@ -42,7 +42,7 @@
   }
 
   .dark {
-    /* Dark mode variables - also using HSL values */
+    /* Dark mode variables - Standard HSL values */
     --background: 222.2 84% 4.9%;
     --foreground: 210 20% 98%;
 
@@ -82,5 +82,5 @@
 }
 
 /* All other custom CSS, @import rules, @custom-variant, @theme inline,
-   and oklch :root/.dark blocks are REMOVED from globals.css entirely.
-   We will manage fonts and animations through other mechanisms. */
+   and oklch :root/.dark blocks are REMOVED from globals.css.
+   Fonts are handled by next/font, animations by tailwindcss-animate plugin. */
