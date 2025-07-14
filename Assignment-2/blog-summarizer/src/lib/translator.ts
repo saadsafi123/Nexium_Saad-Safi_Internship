@@ -1,7 +1,6 @@
 // // src/lib/translator.ts
 
 // // This is a very small, hardcoded dictionary for demonstration.
-// // In a real scenario, this would be massive, dynamically loaded, or use a translation API.
 // const englishToUrduDictionary: { [key: string]: string } = {
 //   "hello": "ہیلو",
 //   "world": "دنیا",
@@ -26,12 +25,10 @@
 //   "and": "اور",
 //   "the": "کے",
 //   "no content to summarize": "خلاصہ کرنے کے لیے کوئی مواد نہیں",
-//   // Add more words/phrases as needed for better "simulation"
 // };
 
 // /**
 //  * Simulates translation from English to Urdu using a predefined dictionary.
-//  * This is a highly simplified approach for assignment purposes.
 //  * @param text The English text to translate.
 //  * @returns The simulated Urdu translation.
 //  */
@@ -53,9 +50,6 @@
 //       translatedText += word;
 //     }
 //   }
-
-//   // Capitalize the first letter of the first word if the original started with a capital,
-//   // this is a very basic attempt to retain some original casing.
 //   if (text.length > 0 && text[0] === text[0].toUpperCase() && translatedText.length > 0) {
 //       translatedText = translatedText.charAt(0).toUpperCase() + translatedText.slice(1);
 //   }
@@ -64,10 +58,6 @@
 // }
 
 // src/lib/translator.ts
-
-// This dictionary is for DEMONSTRATION PURPOSES ONLY to show how more words can be added.
-// It is NOT a comprehensive or grammatically correct translation solution.
-// For "best" translation, you MUST use a dedicated Translation API.
 const englishToUrduDictionary: { [key: string]: string } = {
   "hello": "ہیلو",
   "world": "دنیا",
@@ -93,8 +83,8 @@ const englishToUrduDictionary: { [key: string]: string } = {
   "the": "کے",
   "no content to summarize": "خلاصہ کرنے کے لیے کوئی مواد نہیں",
   "machine": "مشین",
-  "learning": "سیکھنے", // "سیکھنا" (to learn) - this highlights grammar issue
-  "machine learning": "مشین لرننگ", // Example of a phrase, order matters in processing
+  "learning": "سیکھنے", 
+  "machine learning": "مشین لرننگ",
   "generative": "جنریٹو",
   "ai": "اے آئی",
   "artificial": "مصنوعی",
@@ -103,7 +93,7 @@ const englishToUrduDictionary: { [key: string]: string } = {
   "course": "کورس",
   "youtube": "یوٹیوب",
   "channel": "چینل",
-  "will": "گا", // Context dependent
+  "will": "گا", 
   "introduce": "متعارف",
   "you": "آپ کو",
   "to": "کو",
@@ -146,9 +136,9 @@ const englishToUrduDictionary: { [key: string]: string } = {
   "decisions": "فیصلے",
   "without": "کے بغیر",
   "explicit": "واضح",
-  "Beau Carnes": "بیو کارنز", // Proper nouns usually remain untranslated or transliterated
-  "freecodecamp": "فری کوڈ کیمپ", // Transliteration
-  "org": "آرگ", // Common abbreviation
+  "Beau Carnes": "بیو کارنز", 
+  "freecodecamp": "فری کوڈ کیمپ", 
+  "org": "آرگ", 
   "published": "شائع کیا",
   "we": "ہم",
   "just": "بس",
@@ -206,7 +196,6 @@ const englishToUrduDictionary: { [key: string]: string } = {
 
 /**
  * Simulates translation from English to Urdu using a predefined dictionary.
- * This is a highly simplified approach for assignment purposes.
  * @param text The English text to translate.
  * @returns The simulated Urdu translation.
  */
@@ -215,27 +204,20 @@ export function translateToUrdu(text: string): string {
     return '';
   }
 
-  // A slightly more advanced strategy: try to replace phrases before individual words
-  // This is still very basic but helps with terms like "machine learning"
   let translatedText = text;
 
-  // Sort phrases by length descending to prioritize longer matches
   const sortedPhrases = Object.keys(englishToUrduDictionary)
     .filter(key => key.includes(' '))
     .sort((a, b) => b.length - a.length);
 
-  // Replace phrases first
   for (const phrase of sortedPhrases) {
     const translation = englishToUrduDictionary[phrase];
     if (translation) {
-      // Use regex to replace whole words only, case-insensitive
       const regex = new RegExp(`\\b${phrase}\\b`, 'gi');
       translatedText = translatedText.replace(regex, translation);
     }
   }
 
-  // Then, replace individual words for remaining text
-  // Split into words and non-words (e.g., spaces, punctuation)
   const parts = translatedText.split(/(\b\w+\b)/g);
   let finalTranslatedText = '';
 
@@ -244,12 +226,10 @@ export function translateToUrdu(text: string): string {
     if (englishToUrduDictionary[lowerPart]) {
       finalTranslatedText += englishToUrduDictionary[lowerPart];
     } else {
-      finalTranslatedText += part; // Keep original if not found
+      finalTranslatedText += part;
     }
   }
 
-  // Capitalize the first letter if the original text started with a capital.
-  // This is a very basic attempt to retain some original casing.
   if (text.length > 0 && text[0] === text[0].toUpperCase() && finalTranslatedText.length > 0) {
     finalTranslatedText = finalTranslatedText.charAt(0).toUpperCase() + finalTranslatedText.slice(1);
   }

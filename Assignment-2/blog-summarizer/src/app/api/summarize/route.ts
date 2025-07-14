@@ -16,8 +16,9 @@ export async function POST(request: Request) {
 
     // 1. Validate URL format (basic check)
     try {
-      new URL(url); // Attempt to create a URL object to validate
-    } catch (e) {
+      new URL(url);
+    } catch (error) {
+      console.error('URL validation error:', error); 
       return NextResponse.json({ error: 'Invalid URL format' }, { status: 400 });
     }
 
@@ -52,9 +53,6 @@ export async function POST(request: Request) {
       console.log('Summary saved to Supabase.');
     } catch (dbError) {
       console.error('Failed to save to Supabase:', dbError);
-      // Decide if you want to fail the whole request or just log the DB error
-      // For this assignment, we'll continue if one DB save fails but log it.
-      // throw dbError; // Uncomment if you want to halt on Supabase error
     }
 
     // 6. Save full text to MongoDB
@@ -63,9 +61,6 @@ export async function POST(request: Request) {
       console.log('Full text saved to MongoDB.');
     } catch (dbError) {
       console.error('Failed to save to MongoDB:', dbError);
-      // Decide if you want to fail the whole request or just log the DB error
-      // For this assignment, we'll continue if one DB save fails but log it.
-      // throw dbError; // Uncomment if you want to halt on MongoDB error
     }
 
     // 7. Return the summarized data
@@ -76,8 +71,8 @@ export async function POST(request: Request) {
       keywords: keywords,
     }, { status: 200 });
 
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error('API Error:', error);
-    return NextResponse.json({ error: `Internal Server Error: ${error.message || error}` }, { status: 500 });
+        return NextResponse.json({ error: `Internal Server Error: ${error instanceof Error ? error.message : String(error)}` }, { status: 500 });
   }
 }

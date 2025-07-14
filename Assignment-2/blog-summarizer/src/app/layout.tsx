@@ -7,8 +7,7 @@ import './globals.css';
 import { cn } from '@/lib/utils';
 import { Toaster } from '@/components/ui/sonner';
 
-// *** CORRECTED IMPORT PATH FOR ThemeProvider ***
-import { ThemeProvider } from 'next-themes'; // Changed from 'next-themes/dist/react'
+import { ThemeProvider } from 'next-themes'; 
 
 const fontSans = FontSans({
   subsets: ['latin'],
@@ -35,13 +34,13 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-        {/* No <link> for Noto Nastaliq Urdu needed here if using next/font/google */}
+        {/* No <link> for Noto Nastaliq Urdu needed here beacause we are using next/font/google */}
       </head>
       <body
         className={cn(
           'min-h-screen bg-background font-sans antialiased',
           fontSans.variable,
-          notoNastaliqUrdu.variable // Apply the Urdu font variable globally
+          notoNastaliqUrdu.variable // Applying the Urdu font variable globally
         )}
       >
         <ThemeProvider

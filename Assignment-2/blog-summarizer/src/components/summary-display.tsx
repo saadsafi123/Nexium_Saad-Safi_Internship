@@ -16,7 +16,7 @@ interface SummaryDisplayProps {
 export function SummaryDisplay({ summary, isLoading }: SummaryDisplayProps) {
   if (isLoading) {
     return (
-      <Card className="w-full max-w-2xl animate-pulse"> {/* Increased max-w-xl to max-w-2xl */}
+      <Card className="w-full max-w-2xl animate-pulse">
         <CardHeader>
           <CardTitle className="text-xl">Generating Summary...</CardTitle>
         </CardHeader>
@@ -31,7 +31,7 @@ export function SummaryDisplay({ summary, isLoading }: SummaryDisplayProps) {
 
   if (!summary) {
     return (
-      <Card className="w-full max-w-2xl text-center py-8"> {/* Increased max-w-xl to max-w-2xl */}
+      <Card className="w-full max-w-2xl text-center py-8"> 
         <CardContent>
           <p className="text-lg text-gray-500">Enter a blog URL above to get started.</p>
         </CardContent>
@@ -40,7 +40,7 @@ export function SummaryDisplay({ summary, isLoading }: SummaryDisplayProps) {
   }
 
   return (
-    <Card className="w-full max-w-3xl shadow-lg"> {/* Increased max-w-xl to max-w-2xl */}
+    <Card className="w-full max-w-3xl shadow-lg"> 
       <CardHeader>
         <CardTitle className="text-2xl font-bold text-center text-primary-foreground bg-primary p-4 rounded-t-lg">
           Blog Summary
@@ -48,7 +48,7 @@ export function SummaryDisplay({ summary, isLoading }: SummaryDisplayProps) {
       </CardHeader>
       <CardContent className="space-y-6 p-6">
         <div>
-          <h3 className="text-xl font-semibold mb-2 flex items-center justify-between"> {/* Added flex layout for copy button */}
+          <h3 className="text-xl font-semibold mb-2 flex items-center justify-between"> 
             <span>Original URL:</span>
             <CopyButton textToCopy={summary.original_url} />
           </h3>
@@ -58,34 +58,31 @@ export function SummaryDisplay({ summary, isLoading }: SummaryDisplayProps) {
         </div>
 
         <div>
-          <h3 className="text-xl font-semibold mb-2 text-blue-800 flex items-center justify-between"> {/* Added flex layout for copy button */}
+          <h3 className="text-xl font-semibold mb-2 text-blue-800 flex items-center justify-between"> 
             <span>English Summary:</span>
             <CopyButton textToCopy={summary.english_summary} />
           </h3>
-          {/* Enhanced styling for summary field */}
           <ScrollArea className="h-40 rounded-md border p-4 bg-secondary shadow-inner"> 
-            <p className="text-foreground leading-relaxed text-base"> {/* Changed text-gray-700 to text-foreground */}
+            <p className="text-foreground leading-relaxed text-base"> 
               {summary.english_summary}
             </p>
           </ScrollArea>
         </div>
 
         <div>
-          <h3 className="text-xl font-semibold mb-2 text-green-800 flex items-center justify-between"> {/* Added flex layout for copy button */}
+          <h3 className="text-xl font-semibold mb-2 text-green-800 flex items-center justify-between">
             <span>اردو خلاصہ (Urdu Summary):</span>
             <CopyButton textToCopy={summary.urdu_summary} />
           </h3>
-          {/* Enhanced styling for summary field */}
           <ScrollArea className="h-40 rounded-md border p-4 bg-secondary shadow-inner" dir="rtl">
-            <p className={cn("text-right text-foreground leading-relaxed text-base font-urdu")}> {/* Changed text-gray-700 to text-foreground */}
+            <p className={cn("text-right text-foreground leading-relaxed text-base font-urdu")}>
               {summary.urdu_summary}
             </p>
           </ScrollArea>
         </div>
 
         <div>
-          <h3 className="text-xl font-semibold mb-2 flex items-center justify-between"> {/* Added flex layout for copy button */}
-            <span>Keywords:</span>
+          <h3 className="text-xl font-semibold mb-2 flex items-center justify-between">
             <CopyButton textToCopy={summary.keywords.join(', ')} />
           </h3>
           <div className="flex flex-wrap gap-2">

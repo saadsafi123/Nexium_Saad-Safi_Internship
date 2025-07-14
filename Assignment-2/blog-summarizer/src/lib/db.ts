@@ -3,7 +3,6 @@ import { createClient } from '@supabase/supabase-js';
 import { MongoClient, Db } from 'mongodb';
 
 // --- Supabase Configuration ---
-// Ensure NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY are set in your .env.local
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
 const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
@@ -25,7 +24,7 @@ export async function saveSummaryToSupabase(data: {
 }) {
   console.log('Attempting to save summary to Supabase:', data.original_url);
   const { error } = await supabase
-    .from('summaries') // Your table name in Supabase
+    .from('summaries') 
     .insert([data]);
 
   if (error) {
@@ -36,9 +35,8 @@ export async function saveSummaryToSupabase(data: {
 }
 
 // --- MongoDB Configuration ---
-// Ensure MONGODB_URI is set in your .env.local
 const MONGODB_URI = process.env.MONGODB_URI;
-const MONGODB_DB_NAME = 'nexium-mongo'; // As per your handbook, name the DB 'nexium-mongo'
+const MONGODB_DB_NAME = 'nexium-mongo'; 
 
 if (!MONGODB_URI) {
   throw new Error('MONGODB_URI is missing in environment variables. Please check .env.local');
@@ -59,7 +57,7 @@ export async function connectToMongoDB(): Promise<{ client: MongoClient; db: Db 
 
   try {
     console.log('Attempting to connect to MongoDB...');
-    const client = new MongoClient(MONGODB_URI);
+    const client = new MongoClient(MONGODB_URI!);
     await client.connect();
     const db = client.db(MONGODB_DB_NAME);
 
@@ -82,9 +80,8 @@ export async function saveFullTextToMongoDB(url: string, fullText: string) {
   console.log('Attempting to save full text to MongoDB for URL:', url);
   try {
     const { db } = await connectToMongoDB();
-    const collection = db.collection('full_texts'); // This collection will be created automatically if it doesn't exist
+    const collection = db.collection('full_texts'); 
 
-    // Use upsert to update if URL exists, or insert if new
     const result = await collection.updateOne(
       { original_url: url },
       { $set: { original_url: url, full_text: fullText, saved_at: new Date() } },

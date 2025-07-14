@@ -1,20 +1,19 @@
 import type { Config } from 'tailwindcss';
-import { fontFamily } from 'tailwindcss/defaultTheme'; // Import defaultTheme for font extension
+import { fontFamily } from 'tailwindcss/defaultTheme';
 
 const config: Config = {
-  darkMode: ['class'], // Essential for dark mode to work with ThemeProvider
+  darkMode: ['class'],
   content: [
     './pages/**/*.{js,ts,jsx,tsx,mdx}',
     './components/**/*.{js,ts,jsx,tsx,mdx}',
     './app/**/*.{js,ts,jsx,tsx,mdx}',
-    './src/**/*.{js,ts,jsx,tsx,mdx}', // Crucial for scanning your project files
+    './src/**/*.{js,ts,jsx,tsx,mdx}', 
   ],
   theme: {
     extend: {
-      // Define custom font families here, mapping to the CSS variables
       fontFamily: {
         sans: ["var(--font-sans)", ...fontFamily.sans],
-        urdu: ["var(--font-urdu)"], // Define font-urdu here to use the variable from layout.tsx
+        urdu: ["var(--font-urdu)"], 
       },
       colors: {
         border: 'hsl(var(--border))',
@@ -73,7 +72,7 @@ const config: Config = {
     },
   },
   plugins: [
-    require('tailwindcss-animate'), // This plugin is essential for animations
+    require('tailwindcss-animate'), 
   ],
 };
 

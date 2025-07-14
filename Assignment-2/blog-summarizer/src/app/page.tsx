@@ -5,7 +5,7 @@ import { useState } from 'react';
 import { UrlForm, SummaryResponse } from '@/components/url-form';
 import { SummaryDisplay } from '@/components/summary-display';
 import { Separator } from '@/components/ui/separator';
-import { ThemeToggle } from '@/components/theme-toggle'; // Import the toggle button
+import { ThemeToggle } from '@/components/theme-toggle';
 
 export default function Home() {
   const [summarizedData, setSummarizedData] = useState<SummaryResponse | null>(null);
@@ -25,7 +25,6 @@ export default function Home() {
         <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight text-center text-gray-900 dark:text-white leading-tight">
           <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600">Nexium</span> Blog Summarizer
         </h1>
-        {/* Temporarily place theme toggle here */}
         <div className="fixed top-4 right-4 z-50">
           <ThemeToggle />
         </div>

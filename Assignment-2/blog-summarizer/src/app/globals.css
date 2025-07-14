@@ -1,12 +1,10 @@
 /* src/app/globals.css */
 
-/* 1. Tailwind directives - MUST be at the very top */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* 2. Standard ShadCN UI variables and global apply rules.
-   All other problematic or redundant CSS has been removed from here. */
+
 @layer base {
   :root {
     /* ShadCN UI variables - Standard HSL values */
@@ -80,7 +78,3 @@
     @apply bg-background text-foreground;
   }
 }
-
-/* All other custom CSS, @import rules, @custom-variant, @theme inline,
-   and oklch :root/.dark blocks are REMOVED from globals.css.
-   Fonts are handled by next/font, animations by tailwindcss-animate plugin. */

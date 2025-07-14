@@ -6,7 +6,7 @@ import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { toast } from 'sonner'; // IMPORT toast from sonner directly
+import { toast } from 'sonner'; 
 
 interface UrlFormProps {
   onSummarize: (summaryData: SummaryResponse) => void;
@@ -22,14 +22,13 @@ export interface SummaryResponse {
 
 export function UrlForm({ onSummarize, onLoadingChange }: UrlFormProps) {
   const [url, setUrl] = useState<string>('');
-  // REMOVE: const { toast } = useToast();
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
     onLoadingChange(true);
 
     if (!url.trim()) {
-      toast.error('Please enter a URL to summarize.'); // Use toast.error for destructive variant
+      toast.error('Please enter a URL to summarize.'); 
       onLoadingChange(false);
       return;
     }
@@ -46,19 +45,19 @@ export function UrlForm({ onSummarize, onLoadingChange }: UrlFormProps) {
       const data: SummaryResponse & { error?: string } = await response.json();
 
       if (!response.ok) {
-        toast.error(data.error || 'An unexpected error occurred.', { // Use toast.error
+        toast.error(data.error || 'An unexpected error occurred.', {
           description: 'Summarization Failed',
         });
         return;
       }
 
       onSummarize(data);
-      toast.success('Blog summarized successfully!', { // Use toast.success
+      toast.success('Blog summarized successfully!', { 
         description: 'Success!',
       });
     } catch (error) {
       console.error('Error during summarization request:', error);
-      toast.error('Could not connect to the server. Please try again.', { // Use toast.error
+      toast.error('Could not connect to the server. Please try again.', { 
         description: 'Network Error',
       });
     } finally {

@@ -3,7 +3,7 @@
 
 import * as React from 'react';
 import { useTheme } from 'next-themes';
-import { Button } from '@/components/ui/button'; // Assuming you have Button component
+import { Button } from '@/components/ui/button';
 
 export function ThemeToggle() {
   const { theme, setTheme } = useTheme();
@@ -15,7 +15,6 @@ export function ThemeToggle() {
       onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}
       className="rounded-full w-10 h-10 transition-all duration-300 ease-in-out"
     >
-      {/* You can replace these with actual SVG icons for sun/moon if you have them */}
       {theme === 'light' ? (
         <svg
           xmlns="http://www.w3.org/2000/svg"

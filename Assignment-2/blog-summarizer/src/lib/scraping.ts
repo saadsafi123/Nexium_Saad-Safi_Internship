@@ -1,6 +1,6 @@
 // src/lib/scraping.ts
 import * as cheerio from 'cheerio';
-import { JSDOM } from 'jsdom'; // Used to potentially get more reliable document parsing, though cheerio often suffices.
+// import { JSDOM } from 'jsdom'; 
 
 /**
  * Scrapes a given URL and extracts the main textual content.
@@ -19,9 +19,6 @@ export async function scrapeBlogContent(url: string): Promise<string> {
     const $ = cheerio.load(html);
 
     // --- Intelligent Content Extraction Logic ---
-    // This is a simplified approach. Real-world scraping can be complex due to varying website structures.
-    // We'll try to find common elements that hold blog post content.
-    // Prioritize elements that are likely to contain the main article text.
     const selectors = [
       'article',
       '.entry-content',
@@ -30,14 +27,13 @@ export async function scrapeBlogContent(url: string): Promise<string> {
       'main',
       '#content',
       '.container',
-      'body', // Fallback
+      'body',
     ];
 
     let content = '';
     for (const selector of selectors) {
       const element = $(selector).first();
       if (element.length) {
-        // Remove script, style, and navigation elements to clean up text
         element.find('script, style, nav, footer, header, .ads, .sidebar').remove();
         content = element.text();
         break;

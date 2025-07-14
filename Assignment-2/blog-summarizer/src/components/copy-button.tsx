@@ -7,7 +7,7 @@ import { toast } from 'sonner'; // For notifications
 
 interface CopyButtonProps {
   textToCopy: string;
-  label?: string; // Optional label for the button
+  label?: string; 
 }
 
 export function CopyButton({ textToCopy, label = 'Copy' }: CopyButtonProps) {
@@ -36,7 +36,7 @@ export function CopyButton({ textToCopy, label = 'Copy' }: CopyButtonProps) {
 
   return (
     <Button
-      variant="ghost" // Using ghost variant for a subtle button
+      variant="ghost" 
       size="sm"
       onClick={handleCopy}
       className="ml-2 px-2 py-1 h-auto text-xs"
