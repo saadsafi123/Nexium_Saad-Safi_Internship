@@ -15,23 +15,30 @@ export const supabase = createClient(supabaseUrl, supabaseAnonKey);
 /**
  * Saves a new summary record to Supabase.
  * @param data The data for the summary record.
+ * @returns The ID of the newly inserted summary, or undefined if insertion fails.
  */
 export async function saveSummaryToSupabase(data: {
   original_url: string;
   english_summary: string;
-  urdu_summary: string;
+  urdu_summary: string; 
+  api_translated_summary?: string; 
+  target_language_code?: string; 
+  translation_method_used?: string; 
   keywords: string[];
+  is_favorite: boolean; 
 }) {
   console.log('Attempting to save summary to Supabase:', data.original_url);
-  const { error } = await supabase
-    .from('summaries') 
-    .insert([data]);
+  const { data: insertedData, error } = await supabase
+    .from('summaries')
+    .insert([data])
+    .select('id'); 
 
   if (error) {
     console.error('Error saving summary to Supabase:', error);
     throw new Error(`Failed to save summary to Supabase: ${error.message}`);
   }
   console.log('Summary successfully saved to Supabase for URL:', data.original_url);
+  return insertedData?.[0]?.id;
 }
 
 // --- MongoDB Configuration ---

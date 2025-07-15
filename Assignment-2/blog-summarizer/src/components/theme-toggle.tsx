@@ -1,19 +1,24 @@
 // src/components/theme-toggle.tsx
-'use client';
+'use client'; 
 
 import * as React from 'react';
-import { useTheme } from 'next-themes';
-import { Button } from '@/components/ui/button';
+import { useTheme } from 'next-themes'; 
+import { Button } from '@/components/ui/button'; 
+import { cn } from '@/lib/utils'; 
+
 
 export function ThemeToggle() {
-  const { theme, setTheme } = useTheme();
+  const { theme, setTheme } = useTheme(); 
 
   return (
     <Button
-      variant="outline"
+      variant="outline" 
       size="icon"
-      onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}
-      className="rounded-full w-10 h-10 transition-all duration-300 ease-in-out"
+      onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')} 
+      className={cn(
+        "rounded-full w-10 h-10 transition-all duration-300 ease-in-out", 
+        "dark:hover:text-white" 
+      )}
     >
       {theme === 'light' ? (
         <svg

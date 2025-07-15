@@ -7,7 +7,10 @@ import './globals.css';
 import { cn } from '@/lib/utils';
 import { Toaster } from '@/components/ui/sonner';
 
-import { ThemeProvider } from 'next-themes'; 
+import { ThemeProvider } from 'next-themes';
+
+import { Navbar } from '@/components/navbar';
+import { Footer } from '@/components/footer';
 
 const fontSans = FontSans({
   subsets: ['latin'],
@@ -33,14 +36,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <head>
-        {/* No <link> for Noto Nastaliq Urdu needed here beacause we are using next/font/google */}
-      </head>
       <body
         className={cn(
-          'min-h-screen bg-background font-sans antialiased',
+          'min-h-screen bg-background font-sans antialiased flex flex-col',
           fontSans.variable,
-          notoNastaliqUrdu.variable // Applying the Urdu font variable globally
+          notoNastaliqUrdu.variable,
+          'bg-gradient-to-br from-blue-50 to-purple-100 dark:from-gray-950 dark:to-slate-900' // More subtle dark gradient
         )}
       >
         <ThemeProvider
@@ -49,8 +50,12 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          {children}
+          <Navbar />
+          <div className="flex-grow">
+            {children}
+          </div>
           <Toaster />
+          <Footer />
         </ThemeProvider>
       </body>
     </html>

@@ -5,7 +5,6 @@ import { useState } from 'react';
 import { UrlForm, SummaryResponse } from '@/components/url-form';
 import { SummaryDisplay } from '@/components/summary-display';
 import { Separator } from '@/components/ui/separator';
-import { ThemeToggle } from '@/components/theme-toggle';
 
 export default function Home() {
   const [summarizedData, setSummarizedData] = useState<SummaryResponse | null>(null);
@@ -20,17 +19,14 @@ export default function Home() {
   };
 
   return (
-    <main className="flex min-h-screen flex-col items-center p-8 md:p-12 lg:p-24 bg-gradient-to-br from-blue-50 to-purple-100 dark:from-gray-900 dark:to-gray-800">
-      <div className="z-10 w-full max-w-2xl items-center justify-between font-mono text-sm lg:flex mb-10">
-        <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight text-center text-gray-900 dark:text-white leading-tight">
-          <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600">Nexium</span> Blog Summarizer
+    <main className="container flex-grow py-8 px-4 md:px-6 max-w-4xl mx-auto flex flex-col items-center">
+      <div className="w-full text-center mb-6">
+        <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight leading-tight">
+          <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600">Blog</span> Summarizer
         </h1>
-        <div className="fixed top-4 right-4 z-50">
-          <ThemeToggle />
-        </div>
       </div>
 
-      <div className="relative flex flex-col items-center justify-center gap-10 w-full max-w-3xl">
+      <div className="relative flex flex-col items-center justify-center gap-10 w-full max-w-xl md:max-w-3xl">
         <UrlForm onSummarize={handleSummarize} onLoadingChange={handleLoadingChange} />
 
         <Separator className="my-8 h-1 bg-gradient-to-r from-blue-400 to-purple-400 rounded-full w-3/4" />
