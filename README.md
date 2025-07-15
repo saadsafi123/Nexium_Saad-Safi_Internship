@@ -9,11 +9,11 @@ This repository contains projects developed during the Nexium AI-First Web Devel
 Explore the deployed versions of my assignments:
 
 * **Assignment 1: Inspirational Quote Generator**
-    * Live Link: [**https://quote-s-generator.vercel.app/**]
+    * Live Link: **https://quote-s-generator.vercel.app/**
     * GitHub Project Folder: [`/assignment-1/quote-generator`]
 
 * **Assignment 2: Blog Summarizer**
-    * Live Link: [**https://blog-summarizer-a2.vercel.app/**]
+    * Live Link: **https://blog-summarizer-a2.vercel.app/**
     * GitHub Project Folder: [`/assignment-2/blog-summarizer`]
 
 ---
