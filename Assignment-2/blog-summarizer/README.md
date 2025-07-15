@@ -11,7 +11,7 @@ This project significantly expands on core web development concepts, demonstrati
 ## 🚀 Live Demo
 
 Experience the Blog Summarizer live:
-`https://blog-summarizer.a2.vercel.app/`
+https://blog-summarizer.a2.vercel.app/
 
 ---
 
