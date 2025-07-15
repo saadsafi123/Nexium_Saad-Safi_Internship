@@ -10,7 +10,9 @@ import { FavoriteButton } from '@/components/favorite-button';
 import { CopyButton } from '@/components/copy-button';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { Link as LinkIcon, ArrowLeft } from 'lucide-react';
+import { 
+    // Link as LinkIcon, 
+    ArrowLeft } from 'lucide-react';
 import { toast } from 'sonner';
 import { cn } from '@/lib/utils';
 import { useRouter } from 'next/navigation';
@@ -69,10 +71,10 @@ export default function SummaryDetailPage() {
         }
 
         setSummary(summaryData.summary);
-      } catch (err: any) {
+      } catch (err: unknown) { 
         console.error('Error fetching summary details:', err);
-        setError(err.message || 'Could not load summary details.');
-        toast.error('Failed to load summary details.', { description: err.message });
+        setError(err instanceof Error ? err.message : String(err) || 'Could not load summary details.');
+        toast.error('Failed to load summary details.', { description: err instanceof Error ? err.message : String(err) });
       } finally {
         setIsLoading(false);
       }

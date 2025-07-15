@@ -2,9 +2,10 @@
 import { NextResponse } from 'next/server';
 import { supabase } from '@/lib/db';
 
-export async function GET(request: Request, { params }: { params: { id: string } }) {
+export async function GET(request: Request, context: { params: Promise<{ id: string }> }) {
   try {
-    const { id } = await params;
+    const resolvedParams = await context.params; 
+    const { id } = resolvedParams; 
 
     if (!id) {
       return NextResponse.json({ error: 'Summary ID is required.' }, { status: 400 });

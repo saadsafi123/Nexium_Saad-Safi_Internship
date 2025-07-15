@@ -6,12 +6,12 @@ import { format } from 'date-fns';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { FavoriteButton } from '@/components/favorite-button';
-import { CopyButton } from '@/components/copy-button';
+// import { CopyButton } from '@/components/copy-button';
 import { Button } from '@/components/ui/button';
 import { Link as LinkIcon, Trash2 } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { toast } from 'sonner';
-import { Separator } from '@/components/ui/separator';
+// import { Separator } from '@/components/ui/separator';
 import { cn } from '@/lib/utils';
 import Link from 'next/link';
 import {
@@ -23,7 +23,7 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-  AlertDialogTrigger,
+//   AlertDialogTrigger,
 } from '@/components/ui/alert-dialog';
 
 
@@ -70,10 +70,10 @@ export default function HistoryPage() {
           throw new Error(data.error || 'Failed to fetch summaries.');
         }
         setSummaries(data.summaries);
-      } catch (err: any) {
+      } catch (err: unknown) {
         console.error('Error fetching summaries:', err);
-        setError(err.message || 'Could not load history.');
-        toast.error('Failed to load history.', { description: err.message });
+        setError(err instanceof Error ? err.message : String(err) || 'Could not load history.');
+        toast.error('Failed to load history.', { description: err instanceof Error ? err.message : String(err) });
       } finally {
         setIsLoading(false);
       }
@@ -104,9 +104,9 @@ export default function HistoryPage() {
 
       setSummaries(prevSummaries => prevSummaries.filter(summary => summary.id !== summaryIdToDelete));
       toast.success('Summary deleted successfully!', { duration: 1500 });
-    } catch (err: any) {
+    } catch (err: unknown) { 
       console.error('Error deleting summary:', err);
-      toast.error('Failed to delete summary.', { description: err.message });
+      toast.error('Failed to delete summary.', { description: err instanceof Error ? err.message : String(err) });
     } finally {
       setIsDeleteDialogOpen(false);
       setSummaryIdToDelete(null);

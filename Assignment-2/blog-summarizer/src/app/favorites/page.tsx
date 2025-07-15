@@ -6,8 +6,8 @@ import { format } from 'date-fns';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { FavoriteButton } from '@/components/favorite-button';
-import { CopyButton } from '@/components/copy-button'; 
-import { Button } from '@/components/ui/button';
+// import { CopyButton } from '@/components/copy-button'; 
+// import { Button } from '@/components/ui/button';
 import { Link as LinkIcon } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { toast } from 'sonner';
@@ -61,10 +61,10 @@ export default function FavoritesPage() {
         throw new Error(data.error || 'Failed to fetch favorite summaries.');
       }
       setFavoriteSummaries(data.summaries);
-    } catch (err: any) {
+    } catch (err: unknown) { 
       console.error('Error fetching favorite summaries:', err);
-      setError(err.message || 'Could not load favorites.');
-      toast.error('Failed to load favorites.', { description: err.message });
+      setError(err instanceof Error ? err.message : 'An unknown error occurred.');
+      toast.error('Failed to load favorites.', { description: err instanceof Error ? err.message : 'An unknown error occurred.' });
     } finally {
       setIsLoading(false);
     }

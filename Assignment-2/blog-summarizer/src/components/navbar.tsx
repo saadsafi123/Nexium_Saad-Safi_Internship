@@ -4,16 +4,16 @@
 import * as React from 'react';
 import Link from 'next/link';
 import { Menu } from 'lucide-react';
-import { useTheme } from 'next-themes';
+// import { useTheme } from 'next-themes';
 
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { MainNav } from './main-nav'; 
 import { ThemeToggle } from './theme-toggle'; 
-import { cn } from '@/lib/utils';
+// import { cn } from '@/lib/utils';
 
 export function Navbar() {
-  const { theme } = useTheme();
+//   const { theme } = useTheme();
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">

@@ -74,16 +74,16 @@ export default function AboutPage() {
           <h2 className="text-2xl md:text-3xl font-extrabold mt-8 mb-4 text-purple-500 dark:text-purple-400">
             AI Aspects
           </h2>
-          <p className="leading-relaxed">
+          <p>
             This project is designed to showcase both <span className="font-semibold text-primary">simulated AI logic</span> (for initial assignment requirements) and{' '}
             <span className="font-semibold text-primary">true AI integration</span> through advanced APIs:
           </p>
           <ul className="list-disc list-inside space-y-3 ml-4 text-base leading-relaxed">
             <li>
-              <span className="font-semibold text-foreground">Simulated AI:</span> The "Static Logic" for summarization and "JS Dictionary" for translation demonstrate basic algorithmic approaches and hardcoded data manipulation, representing how fundamental AI concepts can be simulated.
+              <span className="font-semibold text-foreground">Simulated AI:</span> The &quot;Static Logic&quot; for summarization and &quot;JS Dictionary&quot; for translation demonstrate basic algorithmic approaches and hardcoded data manipulation, representing how simple AI concepts can be simulated.
             </li>
             <li>
-              <span className="font-semibold text-foreground">True AI (Google Gemini API):</span> When selected, the "AI" summarization method and "API/AI" translation method leverage the powerful Google Gemini API to provide genuinely intelligent and high-quality summaries, accurate keyword extraction, and versatile multi-language translation.
+              <span className="font-semibold text-foreground">True AI (Google Gemini API):</span> When selected, the &quot;AI&quot; summarization method and &quot;API/AI&quot; translation method leverage the powerful Google Gemini API to provide genuinely intelligent and high-quality summaries, accurate keyword extraction, and versatile multi-language translation.
             </li>
           </ul>
 
