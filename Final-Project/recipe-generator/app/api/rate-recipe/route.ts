@@ -1,39 +1,34 @@
+// app/api/rate-recipe/route.ts
+
 import { createServerClient } from '@supabase/ssr'
 import { cookies } from 'next/headers'
 import { NextResponse } from 'next/server'
 
 export async function POST(request: Request) {
-  const recipeData = await request.json()
+  const { recipeId, rating } = await request.json()
   const cookieStore = await cookies()
 
   const supabase = createServerClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-    {
-      cookies: {
-        get(name: string) {
-          return cookieStore.get(name)?.value
-        },
-      },
-    }
+    { cookies: { get: (name) => cookieStore.get(name)?.value } }
   )
 
-  // Use getUser() for server-side authentication
   const { data: { user } } = await supabase.auth.getUser()
 
   if (!user) {
     return new NextResponse('Unauthorized', { status: 401 })
   }
 
-  const { data, error } = await supabase
+  const { error } = await supabase
     .from('saved_recipes')
-    .insert([{ ...recipeData, user_id: user.id }])
-    .select()
+    .update({ rating: rating })
+    .match({ id: recipeId, user_id: user.id })
 
   if (error) {
-    console.error('Error saving recipe:', error)
-    return new NextResponse('Failed to save recipe', { status: 500 })
+    console.error('Error saving rating:', error)
+    return new NextResponse('Failed to save rating', { status: 500 })
   }
 
-  return NextResponse.json({ success: true, data })
+  return NextResponse.json({ success: true })
 }

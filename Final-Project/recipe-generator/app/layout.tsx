@@ -1,12 +1,12 @@
-// app/layout.tsx
-
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
+import { Inter, Lora } from 'next/font/google' 
 import './globals.css'
 import { ThemeProvider } from '@/components/custom/ThemeProvider'
-import { Toaster } from '@/components/ui/sonner' // <-- Import Toaster
+import { Toaster } from '@/components/ui/sonner'
+import { Footer } from '@/components/custom/Footer'
 
-const inter = Inter({ subsets: ['latin'] })
+const inter = Inter({ subsets: ['latin'], variable: '--font-inter' })
+const lora = Lora({ subsets: ['latin'], variable: '--font-lora', weight: "600" })
 
 export const metadata: Metadata = {
   title: 'DishGen',
@@ -19,16 +19,19 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body className={inter.className}>
+    <html lang="en" className={`${inter.variable} ${lora.variable}`} suppressHydrationWarning>
+      <body className={`flex flex-col min-h-screen`}>
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
           enableSystem
           disableTransitionOnChange
         >
-          {children}
-          <Toaster /> {/* <-- Add Toaster here */}
+          <div className="flex-grow">
+            {children}
+          </div>
+          <Toaster />
+          <Footer />
         </ThemeProvider>
       </body>
     </html>

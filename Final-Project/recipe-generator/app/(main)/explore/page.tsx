@@ -1,61 +1,70 @@
-// app/(main)/my-recipes/page.tsx
-
 import { createServerClient } from '@supabase/ssr'
 import { cookies } from 'next/headers'
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card'
-import Link from 'next/link'
+import { ExploreTabs } from '@/components/custom/ExploreTabs'
+import { connectToMongoDB } from '@/lib/mongodb'
+import type { SupabaseClient } from '@supabase/supabase-js'
 
-export default async function MyRecipesPage() {
+async function getMostSaved(supabase: SupabaseClient) {
+  const { data, error } = await supabase.rpc('get_most_saved_recipes')
+  if (error) console.error('Error fetching most saved:', error)
+  return data || []
+}
+
+async function getHighestRated(supabase: SupabaseClient) {
+  const { data, error } = await supabase
+    .from('saved_recipes')
+    .select('id, recipe_name, description, rating, cook_time')
+    .not('rating', 'is', null)
+    .order('rating', { ascending: false })
+    .limit(10)
+  if (error) console.error('Error fetching highest rated:', error)
+  return data || []
+}
+
+async function getRecentGenerations() {
+  try {
+    const { db } = await connectToMongoDB()
+    const logs = await db
+      .collection("recipe_generation_logs")
+      .find({})
+      .sort({ createdAt: -1 })
+      .limit(10)
+      .toArray()
+    
+    return JSON.parse(JSON.stringify(logs))
+  } catch (error) {
+    console.error('Error fetching recent generations:', error)
+    return []
+  }
+}
+
+export default async function ExplorePage() {
   const cookieStore = await cookies()
-
   const supabase = createServerClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-    {
-      cookies: {
-        get(name: string) {
-          return cookieStore.get(name)?.value
-        },
-      },
-    }
+    { cookies: { get: (name) => cookieStore.get(name)?.value } }
   )
 
-  const { data: { session } } = await supabase.auth.getSession()
-
-  const { data: recipes, error } = await supabase
-    .from('saved_recipes')
-    .select('*')
-    .eq('user_id', session?.user.id)
-    .order('created_at', { ascending: false })
-
-  if (error) {
-    return <p className="p-4">Could not load your recipes. Please try again later.</p>
-  }
-  
-  if (!recipes) {
-    return <p className="p-4">An error occurred while fetching recipes.</p>
-  }
+  const [mostSaved, highestRated, recentGenerations] = await Promise.all([
+    getMostSaved(supabase),
+    getHighestRated(supabase),
+    getRecentGenerations()
+  ])
 
   return (
-    <div className="container mx-auto py-10">
-      <h1 className="text-3xl font-bold mb-8">My Saved Recipes</h1>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {recipes.map((recipe: any) => (
-          <Card key={recipe.id}>
-            <CardHeader>
-              <CardTitle>{recipe.recipe_name}</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p className="text-muted-foreground capitalize">{recipe.cuisine_type || 'N/A'} | {recipe.difficulty || 'N/A'}</p>
-            </CardContent>
-          </Card>
-        ))}
-        {recipes.length === 0 && (
-          <div className="col-span-full text-center">
-            <p>You haven't saved any recipes yet. <Link href="/recipe" className="text-primary underline">Generate one!</Link></p>
-          </div>
-        )}
+    <div className="container mx-auto py-10 animate-fade-in-up">
+      <div className="text-center mb-10">
+        <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight font-lora bg-gradient-to-r from-blue-500 to-cyan-400 text-transparent bg-clip-text">Explore Community Recipes</h1>
+        <p className="mt-4 text-lg text-muted-foreground">
+          Discover what&apos;s popular and trending in the DishGen community.
+        </p>
       </div>
+      <ExploreTabs 
+        mostSaved={mostSaved} 
+        highestRated={highestRated}
+        recentGenerations={recentGenerations}
+      />
     </div>
   )
 }

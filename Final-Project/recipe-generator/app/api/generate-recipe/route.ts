@@ -1,69 +1,44 @@
-// import { NextResponse } from 'next/server'
 
-// export async function POST(request: Request) {
-//   // We'll use the form data later when we connect to n8n
-//   const formData = await request.json()
-//   console.log('Received on backend:', formData)
-
-//   // --- MOCK RECIPE DATA ---
-//   // For now, we ignore the form data and return a hardcoded recipe.
-//   const mockRecipe = {
-//     recipe_name: 'Mock Garlic Herb Chicken',
-//     ingredients_json: [
-//       { item: 'Chicken Breast', quantity: '2' },
-//       { item: 'Olive Oil', quantity: '2 tbsp' },
-//       { item: 'Garlic', quantity: '3 cloves, minced' },
-//       { item: 'Dried Herbs (e.g., oregano, thyme)', quantity: '1 tsp' },
-//       { item: 'Salt and Pepper', quantity: 'to taste' },
-//     ],
-//     instructions: [
-//       'Preheat oven to 400°F (200°C).',
-//       'In a small bowl, mix olive oil, minced garlic, dried herbs, salt, and pepper.',
-//       'Place chicken breasts in a baking dish and coat them evenly with the oil mixture.',
-//       'Bake for 20-25 minutes, or until the chicken is cooked through.',
-//       'Let it rest for a few minutes before serving.',
-//     ],
-//     prep_time: 10,
-//     cook_time: 25,
-//     cuisine_type: 'Italian',
-//     meal_type: 'Dinner',
-//     difficulty: 'Easy',
-//   }
-//   // --- END OF MOCK DATA ---
-
-//   // Simulate a network delay
-//   await new Promise(resolve => setTimeout(resolve, 1000));
-
-//   return NextResponse.json(mockRecipe)
-// }
-
-import { NextResponse } from 'next/server';
+import { NextResponse } from 'next/server'
+import { connectToMongoDB } from '@/lib/mongodb'
 
 export async function POST(request: Request) {
-  const formData = await request.json();
+  const formData = await request.json()
+  const n8nWebhookUrl = process.env.N8N_WEBHOOK_URL
 
-  // IMPORTANT: Replace this with your LOCAL n8n Test URL from Step 1
-  const n8nWebhookUrl = 'http://localhost:5678/webhook-test/14aeae78-b01b-4da5-8abf-a74578104d6f';
+  if (!n8nWebhookUrl) {
+    console.error("N8N_WEBHOOK_URL is not set");
+    return new NextResponse(JSON.stringify({ error: 'Server configuration error.' }), { status: 500 });
+  }
 
   try {
     const response = await fetch(n8nWebhookUrl, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        // API Key is usually not needed for local n8n instances
-      },
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(formData),
-    });
-
+    })
+    const result = await response.json()
     if (!response.ok) {
-      console.error('Local n8n workflow failed:', await response.text());
-      return new NextResponse('Failed to generate recipe.', { status: 500 });
+      throw new Error(result.error || 'n8n workflow failed')
+    }
+    
+    try {
+      const { db } = await connectToMongoDB();
+      const collection = db.collection("recipe_generation_logs");
+      await collection.insertOne({
+        request: formData,
+        response: result,
+        createdAt: new Date(),
+      });
+      console.log("Document inserted successfully into MongoDB.");
+    } catch (dbError) {
+      console.error("MongoDB logging failed:", dbError);
     }
 
-    const recipe = await response.json();
-    return NextResponse.json(recipe);
-  } catch (error) {
-    console.error("Error calling local n8n:", error);
-    return new NextResponse('Could not connect to the n8n service.', { status: 500 });
+    return NextResponse.json(result)
+  } catch (error: unknown) {
+    const errorMessage = error instanceof Error ? error.message : "An unknown error occurred";
+    console.error("Error in generate-recipe route:", errorMessage)
+    return new NextResponse(JSON.stringify({ error: errorMessage }), { status: 500 })
   }
 }

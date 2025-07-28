@@ -34,7 +34,7 @@ export default function LoginPage() {
           <CardHeader>
             <CardTitle>Check your email</CardTitle>
             <CardDescription>
-              We've sent a magic link to <strong>{email}</strong>. Click the link to log in.
+              We&apos;ve sent a magic link to <strong>{email}</strong>. Click the link to log in.
             </CardDescription>
           </CardHeader>
         </Card>

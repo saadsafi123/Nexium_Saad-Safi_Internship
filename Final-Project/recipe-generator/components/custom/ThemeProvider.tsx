@@ -1,7 +1,6 @@
 "use client"
 
 import * as React from "react"
-// This is the corrected import line
 import { ThemeProvider as NextThemesProvider, type ThemeProviderProps } from "next-themes"
 
 export function ThemeProvider({ children, ...props }: ThemeProviderProps) {
