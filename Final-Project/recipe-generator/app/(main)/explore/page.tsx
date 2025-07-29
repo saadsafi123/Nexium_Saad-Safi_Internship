@@ -1,7 +1,7 @@
 import { createServerClient } from '@supabase/ssr'
 import { cookies } from 'next/headers'
 import { ExploreTabs } from '@/components/custom/ExploreTabs'
-import { connectToMongoDB } from '../../../lib/mongodb'
+import { connectToMongoDB } from '@/lib/mongodb'
 import type { SupabaseClient } from '@supabase/supabase-js'
 
 async function getMostSaved(supabase: SupabaseClient) {
