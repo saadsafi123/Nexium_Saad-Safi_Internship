@@ -2,11 +2,22 @@ import { NextResponse } from 'next/server'
 import { connectToMongoDB } from '@/lib/mongodb'
 import { GoogleGenerativeAI } from '@google/generative-ai'
 
-// --- AI Generation Logic ---
+// 1. Define a specific type for the form data to remove 'any'.
+type FormData = {
+  ingredients: string;
+  ingredientStrictness: 'strict' | 'flexible';
+  generationMode: 'n8n' | 'gemini';
+  cuisine?: string;
+  mealType?: string;
+  difficulty?: string;
+  dietary?: string[];
+};
+
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY!);
 
-async function runGemini(formData: any) {
-  const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash"});
+// Use the new FormData type here
+async function runGemini(formData: FormData) {
+  const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash"});
 
   const strictnessInstruction = formData.ingredientStrictness === 'strict'
     ? 'You MUST ONLY use the ingredients from the list. Do not add any other food items, not even common staples like oil, salt, or water unless they are listed.'
@@ -46,13 +57,11 @@ async function runGemini(formData: any) {
   try {
     const parsedJson = JSON.parse(cleanedJsonString);
     return parsedJson;
-  } catch (error) {
+  } catch (_error) { // 2. Fix the unused variable warning by adding an underscore
     console.error("Failed to parse Gemini response:", cleanedJsonString);
     throw new Error("The AI returned a recipe in an unexpected format. Please try again.");
   }
 }
-// --- End of AI Logic ---
-
 
 export async function POST(request: Request) {
   const formData = await request.json()
@@ -79,7 +88,6 @@ export async function POST(request: Request) {
       recipe = n8nResult;
     }
 
-    // Log the successful generation to MongoDB
     try {
       const { db } = await connectToMongoDB();
       await db.collection("recipe_generation_logs").insertOne({
