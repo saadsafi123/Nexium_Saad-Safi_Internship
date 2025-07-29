@@ -3,9 +3,17 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import * as z from 'zod'
-import { toast } from 'sonner' 
+import { toast } from 'sonner'
 import { Button } from '@/components/ui/button'
-import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
+import {
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from '@/components/ui/form'
 import { Textarea } from '@/components/ui/textarea'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Checkbox } from '@/components/ui/checkbox'
@@ -56,8 +64,9 @@ export function RecipeForm({ onRecipeGenerated, onIsLoadingChange, isLoading }: 
 
       const result = await response.json()
 
-      if (!response.ok) {
-        throw new Error(result.error || 'Failed to generate recipe.')
+      // This is the key change: Check if the response body itself contains an error
+      if (!response.ok || result.error) {
+        throw new Error(result.error || 'Failed to generate recipe. Please try again.')
       }
       
       onRecipeGenerated(result)
