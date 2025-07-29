@@ -162,10 +162,14 @@ export function RecipeForm({ onRecipeGenerated, onIsLoadingChange, isLoading }: 
                     <SelectTrigger><SelectValue placeholder="Any Cuisine" /></SelectTrigger>
                   </FormControl>
                   <SelectContent>
+                    <SelectItem value="pakistani">Pakistani</SelectItem>
                     <SelectItem value="italian">Italian</SelectItem>
                     <SelectItem value="mexican">Mexican</SelectItem>
-                    <SelectItem value="asian">Asian</SelectItem>
+                    <SelectItem value="chinese">Chinese</SelectItem>
                     <SelectItem value="indian">Indian</SelectItem>
+                    <SelectItem value="american">American</SelectItem>
+                    <SelectItem value="mediterranean">Mediterranean</SelectItem>
+                    <SelectItem value="asian">Asian (General)</SelectItem>
                   </SelectContent>
                 </Select>
               </FormItem>
