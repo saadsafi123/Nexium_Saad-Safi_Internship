@@ -6,16 +6,7 @@ import { Button } from '@/components/ui/button'
 import { toast } from "sonner"
 import { Star, Printer, RefreshCw, Save, Clock, BarChart3, ChefHat } from 'lucide-react'
 import { Separator } from '@/components/ui/separator'
-
-interface Recipe {
-  recipe_name: string;
-  description: string;
-  ingredients_json: { item: string; quantity: string }[];
-  instructions: string[];
-  prep_time: number;
-  cook_time: number;
-  difficulty: string;
-}
+import { type Recipe } from '@/types'
 
 export function RecipeDisplay({ recipe, onGenerateNew }: { recipe: Recipe; onGenerateNew: () => void }) {
   const [isSaving, setIsSaving] = useState(false)
@@ -44,7 +35,6 @@ export function RecipeDisplay({ recipe, onGenerateNew }: { recipe: Recipe; onGen
 
   const handleRate = (rating: number) => {
     setCurrentRating(rating);
-
     if (savedRecipeId) {
        fetch('/api/rate-recipe', {
         method: 'POST',
@@ -59,12 +49,13 @@ export function RecipeDisplay({ recipe, onGenerateNew }: { recipe: Recipe; onGen
   return (
     <Card className="mt-10 animate-fade-in-up">
       <CardHeader>
-        <div className="flex justify-between items-start gap-4">
+        {/* This div is now responsive */}
+        <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-4">
           <div className="flex-1">
             <CardTitle className="text-3xl font-lora font-bold">{recipe.recipe_name}</CardTitle>
             <CardDescription className="pt-2 text-muted-foreground">{recipe.description}</CardDescription>
           </div>
-          <div className="flex gap-2">
+          <div className="flex gap-2 self-start sm:self-auto">
             <Button variant="ghost" size="icon" onClick={onGenerateNew}><RefreshCw className="h-4 w-4" /></Button>
             <Button variant="ghost" size="icon" onClick={handlePrint}><Printer className="h-4 w-4" /></Button>
             <Button onClick={handleSave} disabled={isSaving || !!savedRecipeId}>

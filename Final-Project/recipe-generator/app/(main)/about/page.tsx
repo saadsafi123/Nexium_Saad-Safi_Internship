@@ -24,13 +24,22 @@ export default function AboutPage() {
           </CardHeader>
           <CardContent>
             <ol className="list-decimal list-inside space-y-4 text-muted-foreground">
-              <li><strong>Enter Ingredients:</strong> Go to the &quot;Recipe&quot; tab and type in the ingredients you have on hand.</li>
-              <li><strong>Set Preferences:</strong> Choose your desired cuisine, meal type, and dietary needs.</li>
-              <li><strong>Generate:</strong> Our AI chef analyzes your input and crafts a unique recipe just for you.</li>
-              <li><strong>Save & Explore:</strong> Save your favorite creations to your personal recipe book and see what the community is cooking up!</li>
+              <li>
+                <strong>Enter Ingredients:</strong> Provide a list of ingredients you have on hand.
+              </li>
+              <li>
+                <strong>Fine-Tune Your Request:</strong> Set preferences for cuisine and meal type, and choose whether the AI should be strict with your ingredients or flexible.
+              </li>
+              <li>
+                <strong>Generate with AI:</strong> Select your preferred generation engine and let our AI chef craft a unique recipe just for you.
+              </li>
+              <li>
+                <strong>Save, Rate & Explore:</strong> Save your favorite creations, rate them to keep track of what you loved, and explore what the community is cooking up!
+              </li>
             </ol>
           </CardContent>
         </Card>
+
         <Card className="bg-secondary/30 hover:border-primary/50 transition-colors">
           <CardHeader>
             <CardTitle className="flex items-center gap-2 font-lora">
@@ -40,10 +49,18 @@ export default function AboutPage() {
           </CardHeader>
           <CardContent>
             <ul className="list-disc list-inside space-y-4 text-muted-foreground">
-              <li><strong>Next.js:</strong> For a high-performance, server-rendered React application.</li>
-              <li><strong>Supabase:</strong> Powers our PostgreSQL database and handles secure user authentication.</li>
-              <li><strong>MongoDB:</strong> Stores all recipe generation logs for analytics and community features.</li>
-              <li><strong>n8n & Gemini AI:</strong> The core &quot;AI chef&quot;—an n8n workflow orchestrates calls to Google&apos;s Gemini API to generate creative recipes in real-time.</li>
+              <li>
+                <strong>Next.js & React:</strong> For a high-performance, server-rendered application with a dynamic user interface.
+              </li>
+              <li>
+                <strong>Supabase (PostgreSQL):</strong> Powers our primary database for user accounts and saved recipes.
+              </li>
+              <li>
+                <strong>MongoDB:</strong> Stores all AI recipe generation logs for analytics and community features like the &apos;Recent&apos; tab.
+              </li>
+              <li>
+                <strong>Dual AI Engine:</strong> Features a public mode that calls Google&apos;s Gemini API directly from the server, and a local mode demonstrating automation via an n8n workflow.
+              </li>
             </ul>
           </CardContent>
         </Card>

@@ -8,7 +8,7 @@ import { Button } from '@/components/ui/button'
 import { useTheme } from 'next-themes'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu'
 import { Avatar, AvatarFallback } from "@/components/ui/avatar"
-import { Moon, Sun, Sparkles, Menu } from 'lucide-react'
+import { Moon, Sun, UtensilsCrossed, Menu } from 'lucide-react'
 import type { User } from '@supabase/supabase-js'
 import { cn } from '@/lib/utils'
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
@@ -16,7 +16,7 @@ import { Separator } from '@/components/ui/separator'
 
 export default function NavBar() {
   const [user, setUser] = useState<User | null>(null)
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false) // State for mobile menu
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const router = useRouter()
   const pathname = usePathname()
   const { setTheme, theme } = useTheme()
@@ -52,14 +52,13 @@ export default function NavBar() {
     <nav className="sticky top-0 z-50 w-full border-b bg-background/90 backdrop-blur-sm">
       <div className="container flex h-16 items-center px-4 sm:px-6 lg:px-8">
         <Link href="/recipe" className="mr-6 flex items-center space-x-2 group">
-          <Sparkles className="h-6 w-6 text-primary transition-transform duration-300 group-hover:rotate-12" />
+          <UtensilsCrossed className="h-6 w-6 text-primary transition-transform duration-300 group-hover:rotate-[-5deg]" />
           <h1 className="text-2xl font-extrabold tracking-tight bg-gradient-to-r from-blue-500 to-cyan-400 bg-[length:200%] text-transparent bg-clip-text animate-breathing-gradient">
             DishGen
           </h1>
         </Link>
         
         <div className="flex flex-1 items-center justify-end space-x-2 md:space-x-4">
-          {/* Desktop Navigation (hidden on mobile) */}
           <nav className="hidden md:flex items-center space-x-1">
             {navLinks.map((link) => (
               <Link
@@ -79,8 +78,8 @@ export default function NavBar() {
           
           <div className="flex items-center">
             <Button variant="ghost" size="icon" onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}>
-              <Sun className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
-              <Moon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
+              <Sun className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all duration-500 dark:-rotate-90 dark:scale-0" />
+              <Moon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all duration-500 dark:rotate-0 dark:scale-100" />
               <span className="sr-only">Toggle theme</span>
             </Button>
 
@@ -100,7 +99,6 @@ export default function NavBar() {
             )}
           </div>
 
-          {/* --- Mobile Menu (visible only on mobile) --- */}
           <div className="md:hidden">
             <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
               <SheetTrigger asChild>
@@ -111,7 +109,7 @@ export default function NavBar() {
               </SheetTrigger>
               <SheetContent side="right" className="w-[240px]">
                 <div className="flex items-center space-x-2 mb-6">
-                   <Sparkles className="h-6 w-6 text-primary" />
+                   <UtensilsCrossed className="h-6 w-6 text-primary" />
                    <h1 className="text-2xl font-extrabold tracking-tight bg-gradient-to-r from-blue-500 to-cyan-400 text-transparent bg-clip-text">DishGen</h1>
                 </div>
                 <Separator />
