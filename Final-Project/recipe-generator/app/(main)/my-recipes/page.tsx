@@ -63,7 +63,6 @@ export default function MyRecipesPage() {
     return (
        <div className="container mx-auto py-10">
           <div className="text-center mb-10">
-            {/* --- THIS HEADING IS NOW STYLED --- */}
             <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight font-lora bg-gradient-to-r from-blue-500 to-cyan-400 text-transparent bg-clip-text">My Saved Recipes</h1>
             <p className="mt-4 text-lg text-muted-foreground">Your personal collection of culinary creations.</p>
           </div>

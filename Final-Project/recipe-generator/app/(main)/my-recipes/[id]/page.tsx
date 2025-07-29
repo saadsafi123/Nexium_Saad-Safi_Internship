@@ -20,18 +20,7 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
 import { Separator } from '@/components/ui/separator'
-
-type Recipe = {
-  id: string;
-  recipe_name: string;
-  description: string;
-  prep_time: number;
-  cook_time: number;
-  difficulty: string;
-  rating: number | null;
-  ingredients_json: { item: string; quantity: string }[];
-  instructions: string[];
-};
+import { type Recipe } from '@/types'
 
 export default function RecipeDetailPage() {
   const [recipe, setRecipe] = useState<Recipe | null>(null)
@@ -55,9 +44,16 @@ export default function RecipeDetailPage() {
   }, [recipeId, fetchRecipe])
 
   const confirmDelete = async () => {
-    const response = await fetch(`/api/delete-recipe/${recipeId}`, { method: 'DELETE' })
+    const response = await fetch(`/api/delete-recipe`, { 
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ recipeId: recipeId }),
+    })
+
     if (!response.ok) {
-      toast.error('Failed to delete recipe.')
+      toast.error('Failed to delete recipe. Please try again.')
     } else {
       toast.success('Recipe deleted!')
       router.push('/my-recipes')
@@ -107,6 +103,7 @@ export default function RecipeDetailPage() {
                 <AlertDialogHeader><AlertDialogTitle>Are you sure?</AlertDialogTitle><AlertDialogDescription>This will permanently delete your saved recipe.</AlertDialogDescription></AlertDialogHeader>
                 <AlertDialogFooter>
                   <AlertDialogCancel>Cancel</AlertDialogCancel>
+
                   <AlertDialogAction onClick={confirmDelete} className="bg-destructive hover:bg-destructive/90">Delete</AlertDialogAction>
                 </AlertDialogFooter>
               </AlertDialogContent>
