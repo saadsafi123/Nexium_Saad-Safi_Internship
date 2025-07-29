@@ -168,7 +168,6 @@ export function RecipeForm({ onRecipeGenerated, onIsLoadingChange, isLoading }: 
                     <SelectItem value="chinese">Chinese</SelectItem>
                     <SelectItem value="indian">Indian</SelectItem>
                     <SelectItem value="american">American</SelectItem>
-                    <SelectItem value="mediterranean">Mediterranean</SelectItem>
                     <SelectItem value="asian">Asian (General)</SelectItem>
                   </SelectContent>
                 </Select>

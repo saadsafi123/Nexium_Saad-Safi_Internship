@@ -7,7 +7,7 @@ export function Footer() {
       <div className="container flex flex-col items-center gap-4">
         <div className="flex gap-4">
           <Link 
-            href="https://github.com/your-username" 
+            href="https://github.com/saadsafi123/Nexium_Saad-Safi_Internship.git" 
             target="_blank" 
             rel="noopener noreferrer"
             aria-label="GitHub Profile"
@@ -15,7 +15,7 @@ export function Footer() {
             <Github className="h-6 w-6 text-muted-foreground hover:text-foreground transition-colors" />
           </Link>
           <Link 
-            href="https://linkedin.com/in/your-profile" 
+            href="https://www.linkedin.com/in/saad-safi-7a27612a7/" 
             target="_blank" 
             rel="noopener noreferrer"
             aria-label="LinkedIn Profile"
