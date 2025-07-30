@@ -21,7 +21,7 @@ A full-stack web application that intelligently generates custom recipes from us
 | 🎨 Modern, Animated UI with Dark Mode | ShadCN UI, Tailwind CSS |
 
 
-![DishGen Screenshot]![alt text](image.png)
+**DishGen Screenshot** [alt text](image.png)
 
 ---
 
@@ -39,7 +39,7 @@ A sophisticated tool for summarizing blog posts, extracting keywords, and transl
 | 💾 Dual Database Storage (Supabase & Mongo) | Cheerio (Web Scraping) |
 | ⭐ History & Favorites System | ShadCN UI, Tailwind CSS |
 
-![Blog Summarizer Screenshot](https://i.imgur.com/f2cd48f9-ca49-46fd-ac8e-a03e12f34577.png)
+**Blog Summarizer Screenshot** [alt text](image-1.png)
 
 ---
 
@@ -57,4 +57,4 @@ A modern and aesthetic web app that generates motivational quotes based on a use
 | 🌓 Light/Dark Mode Theme Switching | Tailwind CSS |
 | 📱 Fully Responsive Design | Vercel Deployment |
 
-![Quote Generator Screenshot](https://i.imgur.com/7f6b4379-b0de-434a-a6b5-97fa2b9d13c1.png)
+**Quote Generator Screenshot** [alt text](image-2.png)
