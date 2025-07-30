@@ -10,7 +10,7 @@ This project showcases a complete, production-ready application featuring a soph
 
 ## 🚀 Live Demo & Walkthrough
 
-* **Experience DishGen live:** `https://dishgen-ai.vercel.app`
+* **Experience DishGen live:** [`https://dishgen-ai.vercel.app`](https://quote-s-generator.vercel.app/)
 * **Watch the video tour:** ``
 
 ---
