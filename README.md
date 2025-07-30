@@ -20,7 +20,8 @@ A full-stack web application that intelligently generates custom recipes from us
 | 🌐 Community "Explore" Page | MongoDB Atlas |
 | 🎨 Modern, Animated UI with Dark Mode | ShadCN UI, Tailwind CSS |
 
-![DishGen Screenshot](https://i.imgur.com/L8a1D5y.png)
+
+![DishGen Screenshot]![alt text](image.png)
 
 ---
 
