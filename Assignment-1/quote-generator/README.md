@@ -1,36 +1,56 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Assignment1
 
-## Getting Started
+# 🌟 Inspirational Quote Generator 🌟
 
-First, run the development server:
+A modern and aesthetic web application for generating motivational and inspiring quotes, built as **Assignment 1** for the **Nexium AI-First Web Development Internship - Week 1: Foundation**.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+This project showcases core web development concepts, including Next.js 15 (App Router), ShadCN UI, DaisyUI, and a robust Git workflow.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🚀 Live Demo
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Experience the Quote Generator live:
+https://quote-s-generator.vercel.app/
 
-## Learn More
+![image](https://github.com/user-attachments/assets/f2cd48f9-ca49-46fd-ac8e-a03e12f34577)
 
-To learn more about Next.js, take a look at the following resources:
+**Light Mode:**
+![image](https://github.com/user-attachments/assets/7f6b4379-b0de-434a-a6b5-97fa2b9d13c1)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+**Dark Mode:**
+![image](https://github.com/user-attachments/assets/92e4f067-09a2-4377-a97e-af331d92d455)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
+## ✨ Features
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+* **Topic-Based Quote Generation:** Get 3 motivational quotes by entering a specific topic (e.g., "Motivation", "Success", "Learning").
+* **Dynamic UI:** Clean, aesthetic, and modern user interface with subtle blur and 3D-ish shadow effects.
+* **Theme Switching:** Seamlessly toggle between **Light** and **Dark** themes for a personalized experience.
+* **Responsive Design:** Optimized for a smooth experience across various devices (desktop, tablet, mobile).
+* **Accessible Components:** Built with accessibility considerations using ShadCN UI.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+
+## 🛠️ Tech Stack
+
+This project was developed using the following technologies and tools, adhering to the Nexium internship's Week 1 curriculum:
+
+* **Framework:** [**Next.js 15 (App Router)**](https://nextjs.org/) - React framework for production.
+    * **Server Components:** Utilized for efficient data fetching and rendering.
+    * **Client Components:** Employed for interactive UI elements (form, theme switcher).
+* **UI Library:** [**ShadCN UI**](https://ui.shadcn.com/) - Re-usable components that you can copy and paste into your apps.
+* **Styling:** [**Tailwind CSS**](https://tailwindcss.com/) - A utility-first CSS framework for rapidly building custom designs.
+* **Theming:** [**DaisyUI**](https://daisyui.com/) - Tailwind CSS component library that adds semantic classes and themes.
+* **Language:** [**TypeScript**](https://www.typescriptlang.org/) - Strongly typed JavaScript for enhanced code quality and maintainability.
+* **Package Manager:** [**pnpm**](https://pnpm.io/) - Fast, disk-space efficient package manager.
+* **Code Quality:** [**ESLint**](https://eslint.org/) & [**Prettier**](https://prettier.io/) - For consistent code style and error detection.
+* **Version Control:** [**Git**](https://git-scm.com/) - Managed with conventional commit messages.
+* **Deployment:** [**Vercel**](https://vercel.com/) - Platform for automatic deployments from Git.
+
+---
+
+## 📦 Project Structure
+
+The assignment's code is located within the `internship/assignment-1/quote-generator` directory.
