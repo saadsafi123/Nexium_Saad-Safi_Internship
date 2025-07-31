@@ -1,0 +1,180 @@
+{
+  "name": "recipe-generator",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "14aeae78-b01b-4da5-8abf-a74578104d6f",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        -340,
+        0
+      ],
+      "id": "e911505e-5e94-4d17-85a0-574bc7f9fe19",
+      "name": "Webhook",
+      "webhookId": "14aeae78-b01b-4da5-8abf-a74578104d6f"
+    },
+    {
+      "parameters": {
+        "jsCode": "// The AI's response is in the 'output' property of the input JSON\nconst aiResponse = $json.output;\n\n// Clean the string by removing the markdown fences and extra whitespace\nconst cleanedJsonString = aiResponse.replace(/```json\\n|\\n```/g, '').trim();\n\ntry {\n  // Parse the clean JSON string\n  const parsedJson = JSON.parse(cleanedJsonString);\n  return parsedJson;\n} catch (error) {\n  // If parsing fails, return an error\n  return { error: \"AI response was not valid JSON after cleaning.\", details: error.message, originalText: aiResponse };\n}"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        400,
+        0
+      ],
+      "id": "2909b68f-3b44-40d1-8a0e-3e902d7ac9ef",
+      "name": "Code"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.2,
+      "position": [
+        580,
+        0
+      ],
+      "id": "8c5356d2-a646-43ca-880c-79ef5e0457b5",
+      "name": "Respond to Webhook"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=You are an expert chef named \"DishGen AI\". A user has provided you with the following information. Your task is to generate a single, creative, and delicious recipe.\n\n{{ $('Edit Fields').item.json.prompt_input }}\n\nBased on this, generate a recipe. Your response MUST be a single, minified JSON object with no extra text or markdown formatting(strictly). The JSON object must have the following structure:\n{\n  \"recipe_name\": \"string\",\n  \"description\": \"string (a brief, enticing description of the dish)\",\n  \"prep_time\": number (in minutes),\n  \"cook_time\": number (in minutes),\n  \"difficulty\": \"string (Easy, Medium, or Hard)\",\n  \"cuisine_type\": \"string\",\n  \"ingredients_json\": [\n    {\"item\": \"string\", \"quantity\": \"string\"}\n  ],\n  \"instructions\": [\n    \"string (step 1)\",\n    \"string (step 2)\"\n  ]\n}",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.9,
+      "position": [
+        60,
+        0
+      ],
+      "id": "716dc0c0-f55a-42d1-97b5-eb055bb46c1a",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "modelName": "models/gemini-2.5-flash",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        60,
+        220
+      ],
+      "id": "8b72ded5-9df1-4812-bcdb-e13a2bc413c3",
+      "name": "Google Gemini Chat Model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "HzIXveIbnKFZnS9y",
+          "name": "Google Gemini Recipe-Generator"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "599fb6fb-044d-48a3-9d79-bcb79d8ca455",
+              "name": "prompt_input",
+              "value": "=User's Ingredients: {{ $json.body.ingredients }}\n\nPreferences: \n- Cuisine: {{ $json.body.cuisine || 'Any' }} \n- Meal Type: {{ $json.body.mealType || 'Any' }} \n- Difficulty: {{ $json.body.difficulty || 'Any' }} \n- Dietary Needs: {{ $json.body.dietary.join(', ') || 'None' }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -120,
+        0
+      ],
+      "id": "60da0736-abe1-4956-af23-6adb34c3e4d1",
+      "name": "Edit Fields"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Respond to Webhook": {
+      "main": [
+        []
+      ]
+    },
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Code",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "3d28412a-4799-44fd-8575-f6ec0f6ad69a",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "3666371669b103a72c27eba7c37116891d0067031a1c96bacd139d7d8c5194d6"
+  },
+  "id": "r3qY0AepV12qurr3",
+  "tags": []
+}
