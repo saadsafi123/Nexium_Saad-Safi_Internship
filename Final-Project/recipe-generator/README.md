@@ -11,7 +11,7 @@ This project showcases a complete, production-ready application featuring a soph
 ## 🚀 Live Demo & Walkthrough
 
 * **Experience DishGen live:** [`https://dishgen-ai.vercel.app`](https://dishgen-ai.vercel.app/)
-* **Watch the video tour:** ``
+* **Watch the video tour:** `Final-Project\recipe-generator\DishGenAI-Demo.mp4`
 
 ---
 
